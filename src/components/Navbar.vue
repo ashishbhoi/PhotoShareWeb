@@ -10,35 +10,83 @@
         <ul class="navbar-nav mr-auto">
         </ul>
         <ul class="nav navbar-nav navbar-left padding">
-          <li class="nav-item">
+          <li v-if="isVerefied" class="nav-item">
             <router-link class="nav-link p-2" to="/" aria-label="Home" data-toggle="tooltip" data-placement="bottom" title="Home"><i class="fa fa-home fa-lg"></i></router-link>
           </li>
-          <li class="nav-item ">
+          <li v-if="isVerefied" class="nav-item ">
             <router-link class="nav-link p-2" to="/Notification" aria-label="Notification" data-toggle="tooltip" data-placement="bottom" title="Notification"><i class="fa fa-bell fa-lg"></i></router-link>
           </li>
-          <li class="nav-item ">
+          <li v-if="isVerefied" lass="nav-item ">
             <router-link class="nav-link p-2" to="/Trends" aria-label="Trends" data-toggle="tooltip" data-placement="bottom" title="Trends"><i class="fa fa-fire fa-lg"></i></router-link>
           </li>
-          <li class="nav-item ">
+          <li v-if="isVerefied" class="nav-item ">
             <router-link class="nav-link p-2" to="/Friends" aria-label="Friends" data-toggle="tooltip" data-placement="bottom" title="Friends"><i class="fa fa-user-friends fa-lg"></i></router-link>
           </li>
-          <li class="nav-item ">
+          <li v-if="isVerefied" class="nav-item ">
             <router-link class="nav-link p-2" to="/Messages" aria-label="Messages" data-toggle="tooltip" data-placement="bottom" title="Messages"><i class="fa fa-comments fa-lg"></i></router-link>
           </li>
-          <li class="nav-item ">
+          <li v-if="isVerefied" class="nav-item ">
             <router-link class="nav-link p-2" to="/Account" aria-label="Account" data-toggle="tooltip" data-placement="bottom" title="Account"><i class="fa fa-user-alt fa-lg"></i></router-link>
           </li>
-            <div class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>ASHISH KUMAR BHOI <span class="caret"></span></a>
+            <div v-if="isVerefied" class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>User<span class="caret"></span></a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Setting</a>
-                <a class="dropdown-item" href="#">Add Stories</a>
+                <router-link class="dropdown-item" to="Setting"><i class="fa fa-cog"></i> Setting</router-link>
+                <router-link class="dropdown-item" to="Stories"><i class="fa fa-plus"></i> Stories</router-link>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
+                <a class="dropdown-item" v-on:click="logout" href="#">Logout</a>
             </div>
             </div>
+          <li v-if="!isLogedIn" class="nav-item ">
+            <router-link class="nav-link p-2" to="/Signin" aria-label="SIGNIN" data-toggle="tooltip" data-placement="bottom" title="SIGNIN">SIGNIN</router-link>
+          </li>
+          <li v-if="!isLogedIn" class="nav-item ">
+            <router-link class="nav-link p-2" to="/Signup" aria-label="SIGNUP" data-toggle="tooltip" data-placement="bottom" title="SIGNUP">SIGNUP</router-link>
+          </li>
+          <li v-if="isLogedIn" class="nav-item ">
+            <button v-on:click="logout" class="nav-link p-2" to="/Logout" aria-label="LOGOUT" data-toggle="tooltip" data-placement="bottom" title="LOGOUT">LOGOUT</button>
+          </li>
         </ul>
       </div>
     </div>
 </nav>
 </template>
+
+<script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
+export default {
+  name: 'navbar',
+  data() {
+    return {
+      isLogedIn: false,
+      isVerefied: false
+    }
+  },
+  created() {
+    if(firebase.auth().currentUser) {
+      this.isLogedIn = true
+      this.currentUser = firebase.auth().currentUser.email
+      firebase.auth().onAuthStateChanged(user => {
+        if(!user.emailVerified) {
+          this.isVerefied = false
+        }
+        else {
+          this.isVerefied = true
+        }
+      })
+      
+    }
+  },
+  methods: {
+    logout: function(){
+      firebase.auth().signOut().then(() => {
+        alert('Signout Successful')
+        this.$router.go({path: this.$router.path})
+      }).catch(function(error) {
+        alert(error.message)
+      })
+    }
+  }
+}
+</script>
