@@ -29,12 +29,12 @@
             <router-link class="nav-link p-2" to="/Account" aria-label="Account" data-toggle="tooltip" data-placement="bottom" title="Account"><i class="fa fa-user-alt fa-lg"></i></router-link>
           </li>
             <div v-if="isVerefied" class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>User<span class="caret"></span></a>
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>User<span class="caret"></span></a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <router-link class="dropdown-item" to="Setting"><i class="fa fa-cog"></i> Setting</router-link>
-                <router-link class="dropdown-item" to="Stories"><i class="fa fa-plus"></i> Stories</router-link>
+                <router-link class="dropdown-item" to="/Setting"><i class="fa fa-cog"></i> Setting</router-link>
+                <router-link class="dropdown-item" to="/Stories"><i class="fa fa-plus"></i> Stories</router-link>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" v-on:click="logout" href="#">Logout</a>
+                <a class="dropdown-item" v-on:click="logout">Logout</a>
             </div>
             </div>
           <li v-if="!isLogedIn" class="nav-item ">
@@ -44,7 +44,7 @@
             <router-link class="nav-link p-2" to="/Signup" aria-label="SIGNUP" data-toggle="tooltip" data-placement="bottom" title="SIGNUP">SIGNUP</router-link>
           </li>
           <li v-if="isLogedIn" class="nav-item ">
-            <button v-on:click="logout" class="nav-link p-2" to="/Logout" aria-label="LOGOUT" data-toggle="tooltip" data-placement="bottom" title="LOGOUT">LOGOUT</button>
+            <button v-on:click="logout" class="nav-link p-2" aria-label="LOGOUT" data-toggle="tooltip" data-placement="bottom" title="LOGOUT">LOGOUT</button>
           </li>
         </ul>
       </div>
