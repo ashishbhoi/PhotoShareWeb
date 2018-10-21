@@ -5,10 +5,10 @@
   "author": "Ashish Kumar Bhoi <ashish.bhoi12@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "npm run webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "npm run node build/build.js",
-    "fb-dep": "npm run firebase deploy",
+    "build": "node build/build.js",
+    "fb-dep": "firebase deploy",
     "docs": "rm docs -r && cp dist ./docs -a"
   },
   "dependencies": {
