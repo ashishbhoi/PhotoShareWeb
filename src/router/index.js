@@ -9,6 +9,7 @@ import Settings from '@/components/Settings'
 import Signin from '@/components/Signin'
 import Stories from '@/components/Stories'
 import Trends from '@/components/Trends'
+import ForgotPassword from '@/components/ForgotPassword'
 
 Vue.use(Router)
 
@@ -64,7 +65,11 @@ let router =  new Router({
       name: 'trends',
       component: Trends, 
     },
-    
+    {
+      path: '/ForgotPassword',
+      name: 'forgot-password',
+      component: ForgotPassword, 
+    },
   ]
 })
 
