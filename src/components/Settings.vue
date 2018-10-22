@@ -1,3 +1,3 @@
 <template>
-    <h3>Signin</h3>
+    <h3>Setings</h3>
 </template>
